@@ -22,21 +22,40 @@ init()
 
 let showingRainbow = false
 
-
+let brightness = 255
+let direction = -1
 basic.forever(function () {
     if (scorpioBot.touchingStinger){
         showingRainbow = false
+        strip.setBrightness(255)
         strip.showColor(NeoPixelColors.Red)
         basic.pause(4000)
     }
     else if (ticklingBot.tickling){
         showingRainbow = false
+        strip.setBrightness(255)
+        strip.showColor(NeoPixelColors.Blue)
+        basic.pause(150)
         strip.showColor(NeoPixelColors.Green)
-        basic.pause(200)
-        strip.showColor(NeoPixelColors.Black)
-        basic.pause(200)
+        basic.pause(150)
+    }
+    else if (rabbitBot.eating) {
+        showingRainbow = false
+        strip.showColor(16731392)
+        basic.pause(25)
+        strip.setBrightness(brightness)
+        brightness = brightness + direction * 8
+        if (brightness<0){
+            brightness = 0
+            direction =  1
+        }
+        if (brightness>255){
+            brightness = 255
+            direction = -1
+        }
     }
     else{
+        strip.setBrightness(255)
         if (!showingRainbow) {
             strip.showRainbow(1, 360)
             showingRainbow = true
