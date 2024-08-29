@@ -9,7 +9,6 @@ function init () {
     rabbitBot = new servoBox.RabbitBot();
     rabbitBot.init()
     strip = neopixel.create(DigitalPin.P15, 80, NeoPixelMode.RGB)
-    requestedLedPattern = "RAINBOW"
 }
 input.onButtonPressed(Button.B, function () {
     Kitronik_Robotics_Board.motorOff(Kitronik_Robotics_Board.Motors.Motor1)
@@ -21,39 +20,38 @@ let strip: neopixel.Strip
 init()
 
 
-let requestedLedPattern:string =""
+let showingRainbow = false
 
-let currentLedPattern: string = ""
+
 basic.forever(function () {
-    if (currentLedPattern!=requestedLedPattern){
-        switch(requestedLedPattern){
-            case "RAINBOW":
-                strip.showRainbow(1, 360)
-                break;
-            case "RED":
-                strip.showColor(NeoPixelColors.Red)
-                break;
-            default:
-                break;
-        }
-        currentLedPattern = requestedLedPattern
+    if (scorpioBot.touchingStinger){
+        showingRainbow = false
+        strip.showColor(NeoPixelColors.Red)
+        basic.pause(4000)
     }
-})
-
-
-
-basic.forever(function () {
-    switch (currentLedPattern) {
-        case "RAINBOW":
+    else if (ticklingBot.tickling){
+        showingRainbow = false
+        strip.showColor(NeoPixelColors.Green)
+        basic.pause(200)
+        strip.showColor(NeoPixelColors.Black)
+        basic.pause(200)
+    }
+    else{
+        if (!showingRainbow) {
+            strip.showRainbow(1, 360)
+            showingRainbow = true
+        }
+        else {
             strip.rotate(4)
             strip.show()
             basic.pause(70)
-            break;
-        default:
-            break;
+        }
     }
-   
+    
 })
+
+
+ 
 basic.forever(function () {
     if (ticklingBot.tickling) {
         ticklingBot.moveArms()
@@ -66,11 +64,6 @@ basic.forever(function () {
 })
 basic.forever(function () {
     if (scorpioBot.touchingStinger) {
-        requestedLedPattern = "RED"
         scorpioBot.sting()
-        basic.pause(1000)
-    }
-    else{
-        requestedLedPattern = "RAINBOW"
     }
 })
