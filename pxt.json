@@ -6,7 +6,8 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "pxt-kitronik-robotics-board": "github:kitronikltd/pxt-kitronik-robotics-board#v0.1.0"
+        "pxt-kitronik-robotics-board": "github:kitronikltd/pxt-kitronik-robotics-board#v0.1.0",
+        "neopixel": "github:microsoft/pxt-neopixel#v0.7.6"
     },
     "files": [
         "main.blocks",
@@ -14,7 +15,9 @@
         "README.md",
         "TicklingBot.ts",
         "ScorpioBot.ts",
-        "RabbitBot.ts"
+        "RabbitBot.ts",
+        "ButterflyBot.ts",
+        "Lights.ts"
     ],
     "testFiles": [
         "test.ts"
