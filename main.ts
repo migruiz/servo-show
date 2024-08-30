@@ -58,17 +58,24 @@ basic.forever(function () {
         basic.showIcon(IconNames.SmallHeart)
     }
 })
+function resetIdleLights(){
+    showingFullRainbow = false
+    showingSmallRainbowMoving = false
+}
 basic.forever(function () {
     if (scorpioBot.touchingStinger) {
+        resetIdleLights();
         strip.setBrightness(255)
         strip.showColor(NeoPixelColors.Red)
     } else if (ticklingBot.tickling) {
+        resetIdleLights();
         strip.setBrightness(255)
         strip.showColor(NeoPixelColors.Blue)
         basic.pause(150)
         strip.showColor(NeoPixelColors.Green)
         basic.pause(150)
     } else if (rabbitBot.eating) {
+        resetIdleLights();
         strip.showColor(16731392)
         basic.pause(25)
         strip.setBrightness(rabbitLightsbrightness)
