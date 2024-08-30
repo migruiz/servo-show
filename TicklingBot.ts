@@ -8,8 +8,8 @@ namespace servoBox {
             Kitronik_Robotics_Board.servoWrite(Kitronik_Robotics_Board.Servos.Servo5, 90)
             Kitronik_Robotics_Board.servoWrite(Kitronik_Robotics_Board.Servos.Servo6, 90)
             basic.forever(function () {
-                const pinVal = pins.analogReadPin(AnalogPin.P2)
-                const isTickling = pinVal> 35
+                const pinVal = pins.digitalReadPin(DigitalPin.P2)
+                const isTickling = pinVal ==1
                 this.tickling = isTickling;
                 if (isTickling){
                     basic.pause(3000)
