@@ -17,13 +17,22 @@ rabbitBot.init()
 strip = neopixel.create(DigitalPin.P15, 80, NeoPixelMode.RGB)
 }
 input.onButtonPressed(Button.B, function () {
+    startShowingFullRainbow = !startShowingFullRainbow
+    showingFullRainbow = false
+    startShowingSmallRainbowMoving = !startShowingSmallRainbowMoving
+    showingSmallRainbowMoving = false
 })
 let range: neopixel.Strip = null
 let movingWheel = false
 
+let startShowingFullRainbow = true
+let startShowingSmallRainbowMoving = false
+
 let smallRainbowLocation = 0
 let smallRainbowDirection = 1
 let showingSmallRainbowMoving = false
+
+
 let showingFullRainbow = false
 
 let ticklingBot:servoBox.TicklingBot
@@ -51,21 +60,15 @@ basic.forever(function () {
 })
 basic.forever(function () {
     if (scorpioBot.touchingStinger) {
-        showingFullRainbow = false
-        showingSmallRainbowMoving = false
         strip.setBrightness(255)
         strip.showColor(NeoPixelColors.Red)
     } else if (ticklingBot.tickling) {
-        showingFullRainbow = false
-        showingSmallRainbowMoving = false
         strip.setBrightness(255)
         strip.showColor(NeoPixelColors.Blue)
         basic.pause(150)
         strip.showColor(NeoPixelColors.Green)
         basic.pause(150)
     } else if (rabbitBot.eating) {
-        showingFullRainbow = false
-        showingSmallRainbowMoving = false
         strip.showColor(16731392)
         basic.pause(25)
         strip.setBrightness(rabbitLightsbrightness)
@@ -78,8 +81,8 @@ basic.forever(function () {
             rabbitLightsbrightness = 255
             rabbitLightsDirection = -1
         }
-    } else if (movingWheel) {
-        showingFullRainbow = false
+    } else if (startShowingSmallRainbowMoving) {
+        strip.setBrightness(255)
         if (!(showingSmallRainbowMoving)) {
             smallRainbowLocation = 0
             strip.clear()
@@ -96,8 +99,7 @@ basic.forever(function () {
             strip.rotate(smallRainbowDirection)
         }
         strip.show()
-    } else {
-        showingSmallRainbowMoving = false
+    } else if (startShowingFullRainbow){
         strip.setBrightness(255)
         if (!(showingFullRainbow)) {
             strip.showRainbow(1, 360)
