@@ -29,23 +29,16 @@ let smallRainbowDirection = 1
 let brightness = 255
 let direction = -1
 basic.forever(function () {
-    if (scorpioBot.touchingStinger) {
-        scorpioBot.sting()
-    }
-})
-basic.forever(function () {
     if (rabbitBot.eating) {
         basic.showIcon(IconNames.Happy)
     } else if (scorpioBot.touchingStinger) {
         basic.showIcon(IconNames.Angry)
     } else if (ticklingBot.tickling) {
         basic.showIcon(IconNames.Silly)
-    } 
-    else if (movingWheel){
+    } else if (movingWheel) {
         basic.showIcon(IconNames.Diamond)
         basic.showIcon(IconNames.SmallDiamond)
-    }
-    else {
+    } else {
         basic.showIcon(IconNames.Heart)
         basic.showIcon(IconNames.SmallHeart)
     }
@@ -120,6 +113,8 @@ basic.forever(function () {
         rabbitBot.moveEars()
     }
 })
-
-
-
+basic.forever(function () {
+    if (scorpioBot.touchingStinger) {
+        scorpioBot.sting()
+    }
+})
