@@ -22,12 +22,5 @@
     "testFiles": [
         "test.ts"
     ],
-    "targetVersions": {
-        "target": "7.0.34",
-        "targetId": "microbit"
-    },
-    "supportedTargets": [
-        "microbit"
-    ],
     "preferredEditor": "tsprj"
 }
