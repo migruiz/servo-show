@@ -10,6 +10,9 @@ namespace servoBox {
             basic.forever(function () {
                 const pinVal = pins.digitalReadPin(pin)
                 this.touchingStinger = pinVal == 1
+                if (this.touchingStinger) {
+                    basic.pause(6000)
+                }
             })
 
         }
@@ -18,6 +21,7 @@ namespace servoBox {
             Kitronik_Robotics_Board.servoWrite(Kitronik_Robotics_Board.Servos.Servo8, 0)
             basic.pause(2000)
             Kitronik_Robotics_Board.servoWrite(Kitronik_Robotics_Board.Servos.Servo8, 180)
+            basic.pause(500)
         }
 
 
